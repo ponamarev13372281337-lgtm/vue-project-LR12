@@ -3,17 +3,36 @@ export default{
     data(){
         return{
             city: "",
-            error:""
+            error:"",
+            weather: null,
+            loading:false
         }
     },
+
     methods:{
         getWeather(){
             if(this.city.trim().length<2){
                 this.error = "Введите коректное название города";
+                this.weather = null;
                 return false;
             }
 
             this.error = "";
+            this.loading=true;
+            this.weather=null;
+
+            fetch(`https://api.open-meteo.com/v1/forecast?latitude=56.50&longitude=84.97&current_weather=true`)
+                .then(response => response.json())
+                .then(data =>{
+                    this.weather = data.current_weather.temperature;
+                    this.loading = false;
+                })
+                .catch(err =>{
+                    this.error ="Ошбика при совершении запроса к серверу!"
+                    this.loading=false;
+                });
+
+            
         }
     }
 
@@ -23,9 +42,11 @@ export default{
 <template>
     <div class="wrapper">
         <h1>Погодное приложение</h1>
-        <p>Узнать погоду в {{ city  == "" ? "в вашем городе" : "<" + city + ">"}}</p>
+        <p>Узнать погоду в {{ city  == "" ? "вашем городе" : "<" + city + ">"}}</p>
         <input type="text" v-model="city" placeholder="Введите ваш город">
         <button @click="getWeather()">Получить погоду</button>
+        <p v-if="loading">Связь с метеостанцией....</p>
+        <h2 v-if="weather !== null" class="watherInfo">Сейчас там: {{weather}}°C</h2>
         <p class="error">{{ error }}</p>
     </div>
 </template>
@@ -46,10 +67,15 @@ export default{
 }
 
 .wrapper h1{
+    color: yellow;
     margin-top: 50px;
 }
 
 .wrapper p{
+    margin-top: 20px;
+}
+
+.wrapper h2{
     margin-top: 20px;
 }
 
