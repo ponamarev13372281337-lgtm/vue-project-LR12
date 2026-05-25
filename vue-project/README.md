@@ -1,38 +1,44 @@
-# vue-project
+# Лабораторная работа №12: Разработка многостраничного веб-приложения на Vue 3
 
-This template should help get you started developing with Vue 3 in Vite.
+Выполнил: студент группы 8И42, Понамарев Д.А.
 
-## Recommended IDE Setup
+Данный проект представляет собой учебное веб-приложение, состоящее из трех автономных страниц с настроенной маршрутизацией, глобальным хранилищем состояния и асинхронным взаимодействием с внешними REST API серверами.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+---
 
-## Recommended Browser Setup
+Реализованный функционал 
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+1 страница: Главная / О проекте
+* Настроена конфигурация `Vue Router` для бесшовного переключения между страницами без перезагрузки вкладки.
+* Pinia: Интегрирован глобальный менеджер состояния Pinia. Создан стор `userStore`, данные из которого (имя и статус разработчика) реактивно выводятся на странице.
 
-## Customize configuration
+2 страница: Погодное приложение
+* Реализовано автоматическое получение данных при переходе на страницу с помощью хука жизненного цикла `mounted()`.
+* Настроен асинхронный `GET`-запрос с использованием Fetch API к открытому источнику погоды Open-Meteo API.
+* Добавлен индикатор состояния загрузки данных («Связь с метеостанцией...») и обработка возможных сетевых ошибок.
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+3 страница: Обратная связь (Форма отправки)
+* Разработана интерактивная форма обратной связи (Email и текстовое сообщение) с валидацией введенных данных на стороне клиента.
+* Настроено преобразование данных формы в валидный объект отправки.
+* Реализована отправка данных асинхронным `POST`-запросом в формате JSON на тестовый сервер JSONPlaceholder с логированием успешного ответа (ID: 101) в консоль браузера.
 
-## Project Setup
+---
 
-```sh
-npm install
-```
+Стек технологий
+* Framework: Vue 3 (Options API)
+* Build Tool: Vite
+* Routing: Vue Router
+* State Management: Pinia
+* API Interaction: Fetch API (Promises, JSON serialization)
 
-### Compile and Hot-Reload for Development
+---
 
-```sh
-npm run dev
-```
+Инструкция по локальному запуску проекта:
 
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+1. Клонировать репозиторий на локальный компьютер.
+2. Установить все необходимые пакеты и зависимости:
+  ```bash
+  npm install
+3. Запустить локальный сервер для разработки:
+  npm run dev
+4. Открыть проект в браузере по адресу, указанному в терминале.

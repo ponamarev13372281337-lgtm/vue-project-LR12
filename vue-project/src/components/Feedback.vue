@@ -1,29 +1,58 @@
 <script>
+import { useUserStore } from '@/stores/userStore';
+
 export default {
     data(){
         return{
+            userStore: useUserStore(),
             email: "",
             message: "",
             sent: false,
             error:""
         }
     },
+    mounted() {
+        this.email = this.userStore.email;
+    },
     methods:{
         sendFeedback(){
             if(this.message.trim().length<2){
                 this.error="Введите полное сообщение!";
                 return false;
-            }
+            };
             if(this.email.trim().length<5 || !this.email.includes('@')){
                 this.error="Введите коректный  Email!";
                 return false;
-            }
+            };
             this.error="";
 
-            
-            this.sent = true;
-            this.email = "";
-            this.message = "";
+            let FeedackForm ={
+                title:this.email,
+                body:this.message,
+                userId:1,
+            };
+
+            fetch('https://jsonplaceholder.typicode.com/posts', {
+                method:'POST',
+                body: JSON.stringify(FeedackForm),
+                headers:{
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+            .then((response)=> {
+                return response.json();
+            })
+            .then((json)=>{
+                console.log('Успешно отправлено! Ответ сервера: ', json);
+                this.sent = true;
+                this.email = "";
+                this.message = "";
+            })
+
+            .catch((err)=>{
+                this.error="Ошбика при совершении запроса к серверу!";
+                console.log(err);
+            });
         }
     }
 }

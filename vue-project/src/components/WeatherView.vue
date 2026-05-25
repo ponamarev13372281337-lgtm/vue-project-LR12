@@ -9,13 +9,17 @@ export default{
         }
     },
 
+    mounted(){
+        this.getWeather();
+    },
+
     methods:{
         getWeather(){
-            if(this.city.trim().length<2){
-                this.error = "Введите коректное название города";
-                this.weather = null;
-                return false;
-            }
+            // if(this.city.trim().length<2){
+            //     this.error = "Введите коректное название города";
+            //     this.weather = null;
+            //     return false;
+            // }
 
             this.error = "";
             this.loading=true;
@@ -109,3 +113,6 @@ export default{
     transform: scale(1.1) translateY(-5px);
 }
 </style>
+
+
+

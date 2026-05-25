@@ -1,3 +1,14 @@
+<script>
+import { useUserStore } from '@/stores/userStore';
+
+export default{
+    data(){
+        return{
+            userStore:useUserStore()
+        }
+    }
+}
+</script>
 <template>
     <div class = "wrapper">
         <h1>О проекте</h1>
@@ -12,6 +23,8 @@
                 <li>Scoped Стили</li>
             </ul>
         </div>
+        <h1>Разработчик: {{ userStore.name }}</h1>
+        <p>Текущий статус: {{userStore.statusInfo }}</p>
     </div>
 </template>
 
