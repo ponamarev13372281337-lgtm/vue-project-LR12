@@ -45,7 +45,6 @@ export default {
             .then((json)=>{
                 console.log('Успешно отправлено! Ответ сервера: ', json);
                 this.sent = true;
-                this.email = "";
                 this.message = "";
             })
 
